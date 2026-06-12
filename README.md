@@ -3,7 +3,7 @@
 **Your AI agent is reading 3,000 lines of test output. It only needs 25.**
 
 [![npm](https://img.shields.io/npm/v/logslim)](https://www.npmjs.com/package/logslim)
-[![license](https://img.shields.io/npm/l/logslim)](./LICENSE)
+[![license](https://img.shields.io/github/license/P156HAM/logslim)](./LICENSE)
 [![node](https://img.shields.io/node/v/logslim)](https://www.npmjs.com/package/logslim)
 
 When Claude Code, Cursor, or Codex runs `npm test` and it **fails**, the agent reads
