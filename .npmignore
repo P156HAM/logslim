@@ -1,0 +1,9 @@
+src/
+test/
+scripts/
+.github/
+tsconfig.json
+*.ts
+!dist/**/*.d.ts
+LAUNCH.md
+.gitignore

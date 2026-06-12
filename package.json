@@ -1,0 +1,67 @@
+{
+  "name": "logslim",
+  "version": "0.2.0",
+  "description": "Compact noisy test/build output before AI agents read it. 80-95% fewer tokens. CLI + MCP for Claude Code & Cursor.",
+  "keywords": [
+    "ai-agents",
+    "ai",
+    "llm",
+    "tokens",
+    "logs",
+    "cli",
+    "claude",
+    "claude-code",
+    "cursor",
+    "mcp",
+    "mcp-server",
+    "codex",
+    "aider",
+    "stack-trace",
+    "log-compression",
+    "developer-tools",
+    "jest",
+    "pytest",
+    "test-runner"
+  ],
+  "author": "Hamdi Al Masalmeh <a.hamdi.almasalmeh@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/P156HAM/logslim.git"
+  },
+  "homepage": "https://github.com/P156HAM/logslim#readme",
+  "bugs": {
+    "url": "https://github.com/P156HAM/logslim/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "logslim": "dist/cli.js",
+    "logslim-mcp": "dist/mcp/server.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "errors"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "demo": "npm run build && node scripts/demo.mjs",
+    "mcp": "node dist/mcp/server.js",
+    "test": "node --import tsx --test test/*.test.ts",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25.28"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

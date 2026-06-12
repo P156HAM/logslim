@@ -1,0 +1,34 @@
+{
+  "ERESOLVE": {
+    "meaning": "npm cannot resolve dependency tree — conflicting peer or version requirements",
+    "fix_steps": ["Read the conflict above the ERESOLVE line", "Align peer dependency versions", "As last resort: rm -rf node_modules package-lock.json && npm install"]
+  },
+  "E404": {
+    "meaning": "Package not found in registry",
+    "fix_steps": ["Check package name spelling", "Verify registry URL and .npmrc", "Ensure the package is published"]
+  },
+  "E401": {
+    "meaning": "Unauthorized — bad or missing npm auth token",
+    "fix_steps": ["Run npm login", "Check NPM_TOKEN in CI", "Verify .npmrc auth for private scopes"]
+  },
+  "E403": {
+    "meaning": "Forbidden — no access to this package or registry",
+    "fix_steps": ["Request access to the private package", "Check org/scope permissions"]
+  },
+  "EACCES": {
+    "meaning": "Permission denied writing to node_modules or cache",
+    "fix_steps": ["Fix ownership of ~/.npm and project dir", "Avoid sudo npm install"]
+  },
+  "ELIFECYCLE": {
+    "meaning": "Script failed — a package lifecycle script (postinstall, build, etc.) exited non-zero",
+    "fix_steps": ["Scroll up for the actual error in the script output", "Run the failing script directly", "Check native deps (node-gyp, python) if postinstall builds binaries"]
+  },
+  "ENOENT": {
+    "meaning": "npm expected a file that doesn't exist",
+    "fix_steps": ["Verify package.json scripts and paths", "Reinstall dependencies"]
+  },
+  "ETARGET": {
+    "meaning": "No matching version found for a dependency range",
+    "fix_steps": ["Check available versions on npm", "Loosen or fix the version range in package.json"]
+  }
+}

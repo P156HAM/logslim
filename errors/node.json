@@ -1,0 +1,42 @@
+{
+  "ECONNREFUSED": {
+    "meaning": "Connection refused — nothing is listening on that host:port",
+    "fix_steps": ["Start the server/service", "Check host and port in env/config", "Verify firewall and that the process is running"]
+  },
+  "ECONNRESET": {
+    "meaning": "Connection reset by peer — remote side closed the socket abruptly",
+    "fix_steps": ["Retry with backoff", "Check server logs for crashes", "Verify timeouts and load balancer idle settings"]
+  },
+  "ENOTFOUND": {
+    "meaning": "DNS lookup failed — hostname doesn't resolve",
+    "fix_steps": ["Check the hostname spelling", "Verify DNS/network", "Use correct env for staging vs production"]
+  },
+  "ETIMEDOUT": {
+    "meaning": "Connection or operation timed out",
+    "fix_steps": ["Increase timeout if appropriate", "Check network latency", "Ensure the remote service is healthy"]
+  },
+  "EADDRINUSE": {
+    "meaning": "Port already in use — another process holds the port",
+    "fix_steps": ["Kill the process on that port", "Change PORT in config", "Use lsof/ss to find the blocker"]
+  },
+  "EACCES": {
+    "meaning": "Permission denied — insufficient rights for file or port",
+    "fix_steps": ["Check file permissions", "Don't bind to privileged ports (<1024) without root", "Run with correct user/role"]
+  },
+  "ENOENT": {
+    "meaning": "No such file or directory",
+    "fix_steps": ["Verify the path exists", "Create missing dirs/files", "Check cwd when using relative paths"]
+  },
+  "EEXIST": {
+    "meaning": "File already exists (often on mkdir/write with exclusive flag)",
+    "fix_steps": ["Remove or rename the existing file", "Use recursive mkdir with existOk semantics"]
+  },
+  "EPERM": {
+    "meaning": "Operation not permitted",
+    "fix_steps": ["Check OS permissions", "On macOS, verify Full Disk Access if needed"]
+  },
+  "ENOMEM": {
+    "meaning": "Out of memory",
+    "fix_steps": ["Reduce batch size or concurrency", "Profile for leaks", "Increase container memory limit"]
+  }
+}

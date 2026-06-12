@@ -1,0 +1,42 @@
+{
+  "TS2304": {
+    "meaning": "Cannot find name — used a variable/type that TypeScript doesn't know about",
+    "fix_steps": ["Check spelling", "Add import for the symbol", "Declare the variable or add it to scope"]
+  },
+  "TS2307": {
+    "meaning": "Cannot find module — import path doesn't resolve",
+    "fix_steps": ["Verify the file exists", "Run npm install if it's a package", "Check tsconfig paths and moduleResolution"]
+  },
+  "TS2322": {
+    "meaning": "Type is not assignable — value doesn't match the expected type",
+    "fix_steps": ["Check the target type", "Cast or narrow the value", "Fix the return type or variable annotation"]
+  },
+  "TS2339": {
+    "meaning": "Property does not exist on type",
+    "fix_steps": ["Check for typos in the property name", "Extend the interface/type", "Use optional chaining if the field may be absent"]
+  },
+  "TS2345": {
+    "meaning": "Argument type is not assignable to parameter type",
+    "fix_steps": ["Match the function signature", "Convert or narrow the argument", "Update generics if calling a generic function"]
+  },
+  "TS2554": {
+    "meaning": "Expected N arguments, but got M",
+    "fix_steps": ["Count required vs optional parameters", "Pass missing arguments or use defaults", "Check if you're calling an overload incorrectly"]
+  },
+  "TS2551": {
+    "meaning": "Property does not exist — did you mean another property?",
+    "fix_steps": ["Use the suggested property name", "Add the missing property to your type"]
+  },
+  "TS2571": {
+    "meaning": "Object is of type 'unknown'",
+    "fix_steps": ["Narrow with typeof/instanceof checks", "Use a type guard", "Assert only if you're certain of the shape"]
+  },
+  "TS7006": {
+    "meaning": "Parameter implicitly has an 'any' type",
+    "fix_steps": ["Add an explicit type annotation", "Enable noImplicitAny only after fixing, or type the callback parameter"]
+  },
+  "TS7031": {
+    "meaning": "Binding element implicitly has an 'any' type (destructuring)",
+    "fix_steps": ["Type the destructured object or annotate each binding"]
+  }
+}

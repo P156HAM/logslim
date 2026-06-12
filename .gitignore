@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Private notes — never publish
+LAUNCH.md
+PRIVATE.md
+*.private.md
