@@ -1,23 +1,82 @@
 # logslim
 
-**Your AI agent is reading 3,000 lines of test output. It only needs 25.**
+**CI failed? Get a 5-line PR summary — not a 400-line Actions log.**  
+**Agent reading test output? Cut 80–95% of the tokens.**
 
 [![npm](https://img.shields.io/npm/v/logslim)](https://www.npmjs.com/package/logslim)
 [![license](https://img.shields.io/github/license/P156HAM/logslim)](./LICENSE)
 [![node](https://img.shields.io/node/v/logslim)](https://www.npmjs.com/package/logslim)
 
-When Claude Code, Cursor, or Codex runs `npm test` and it **fails**, the agent reads
-**everything** — progress bars, 120 identical warnings, 40 frames of `node_modules`.
-You pay for those tokens. The agent gets distracted by noise.
+When tests or builds fail, you scroll GitHub Actions logs. When Claude Code or Cursor runs
+`npm test`, the agent reads **everything** — progress bars, 120 identical warnings, 40 frames
+of `node_modules`. logslim fixes both:
 
-**logslim** sits between the command and the agent. It keeps errors, assertions, and
-summaries. It removes the rest. Typically **80–95% fewer tokens** on failure output.
+1. **CI / humans** — GitHub Action posts structured failures on your PR (file, line, fix hints)
+2. **Agents / tokens** — CLI + MCP compacts noisy output before an LLM reads it (~80–95% savings on failures)
 
 ```bash
 npx logslim -- npm test
 ```
 
 No account. No API key. MIT open source.
+
+---
+
+## GitHub Action — PR failure summary
+
+When CI fails, post a readable summary on the pull request instead of making reviewers dig
+through Actions logs.
+
+```yaml
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Run tests
+        id: test
+        run: npm test 2>&1 | tee test-output.log
+        continue-on-error: true
+
+      - name: Post failure summary
+        if: steps.test.outcome == 'failure' && github.event_name == 'pull_request'
+        uses: P156HAM/logslim/action@v0.3.0
+        with:
+          log-file: test-output.log
+          exit-code: 1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fail job
+        if: steps.test.outcome == 'failure'
+        run: exit 1
+```
+
+**What gets posted on the PR:**
+
+- Structured failures with `file:line` and messages
+- Fix hints for known codes (`TS2339`, `ERESOLVE`, …)
+- Link to the full CI log
+- Token/log reduction stats (useful when agents also read the output)
+
+The Action uses the same engine as the CLI — compaction, error extraction, and code cards.
+You get **human-readable PR comments** and **agent-ready JSON** from one tool.
+
+| Input | Default | Purpose |
+| ----- | ------- | ------- |
+| `log-file` | _(required)_ | Path to captured test/build log |
+| `exit-code` | `1` | Exit code of the failed command |
+| `github-token` | _(required)_ | `secrets.GITHUB_TOKEN` with `pull-requests: write` |
+| `logslim-version` | `0.3.0` | npm version to run |
+| `skip-on-success` | `true` | Don't comment when no failure detected |
 
 ---
 
@@ -287,10 +346,10 @@ const result = process(rawLog, {
 
 | Use it                                                   | Skip it                                        |
 | -------------------------------------------------------- | ---------------------------------------------- |
+| CI failed and you want a PR summary, not a 400-line log  | Tests passed and output is already short       |
 | AI agents running tests/builds locally or in CI          | You already tee full logs to disk for audit    |
-| Long repetitive failure output (jest, pytest, webpack)   | Output is already 10 lines                     |
-| MCP workflows where tool output hits context limits      | Platform already truncates well enough for you |
-| Consultancies standardizing agent workflows across repos | You need full logs for compliance archive      |
+| Long repetitive failure output (jest, pytest, webpack)   | Platform already truncates well enough for you |
+| MCP workflows where tool output hits context limits      | You need full logs for compliance archive      |
 
 Keep full logs if you need them:
 

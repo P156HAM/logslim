@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,5 +21,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm test
+      - name: Run tests
+        id: run-tests
+        run: npm test 2>&1 | tee test-output.log
+        continue-on-error: true
       - run: npm run build
+      - name: Fail if tests failed
+        if: steps.run-tests.outcome == 'failure'
+        run: exit 1
+      - name: Post logslim PR summary on failure
+        if: steps.run-tests.outcome == 'failure' && github.event_name == 'pull_request' && matrix.node-version == 20
+        uses: ./action
+        with:
+          log-file: test-output.log
+          exit-code: 1
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          local: "true"

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- **GitHub Action** (`./action`): post structured failure summaries on PRs when CI tests/builds fail
+- **`formatPrComment()`** API for turning `process()` JSON into markdown PR comments
+- Dual use: **CI failure digest for humans** + **log compaction / JSON / MCP for agents** (unchanged)
+
 ## 0.2.0
 
 - **Failure mode** (default): compact hard only when command fails

@@ -111,7 +111,7 @@ function parseArgs(argv: string[]): CliArgs {
         break;
       case "-v":
       case "--version":
-        console.log("logslim 0.2.0");
+        console.log("logslim 0.3.0");
         process.exit(0);
         break;
       default:

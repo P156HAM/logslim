@@ -1,6 +1,6 @@
 {
   "name": "logslim",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Compact noisy test/build output before AI agents read it. 80-95% fewer tokens. CLI + MCP for Claude Code & Cursor.",
   "keywords": [
     "ai-agents",

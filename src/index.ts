@@ -163,3 +163,5 @@ export type { ExtractedError } from "./extract.js";
 export type { ErrorCodeCard } from "./codes.js";
 export type { AttachSource } from "./attach.js";
 export { isPriorityLine } from "./template.js";
+export { formatPrComment, PR_COMMENT_MARKER } from "./pr-comment.js";
+export type { PrCommentInput } from "./pr-comment.js";

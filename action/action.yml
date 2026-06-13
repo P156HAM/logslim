@@ -1,0 +1,52 @@
+name: logslim PR failure summary
+description: Post a structured test/build failure summary on pull requests using logslim
+branding:
+  icon: file
+  color: blue
+
+inputs:
+  log-file:
+    description: Path to the captured stdout/stderr log from the failed command
+    required: true
+  exit-code:
+    description: Exit code of the failed command (default 1)
+    required: false
+    default: "1"
+  github-token:
+    description: Token with pull-requests:write (usually secrets.GITHUB_TOKEN)
+    required: true
+  pr-number:
+    description: Override PR number (auto-detected from pull_request events)
+    required: false
+    default: ""
+  logslim-version:
+    description: npm version of logslim to run (ignored when local=true)
+    required: false
+    default: "0.3.0"
+  local:
+    description: Use logslim from this repo checkout (dist/) instead of npm — for dogfooding
+    required: false
+    default: "false"
+  skip-on-success:
+    description: Do not post a comment when logslim finds no failure
+    required: false
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+    - name: Post logslim PR summary
+      shell: node
+      run: node "${{ github.action_path }}/post.mjs"
+      env:
+        INPUT_LOG_FILE: ${{ inputs.log-file }}
+        INPUT_EXIT_CODE: ${{ inputs.exit-code }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_PR_NUMBER: ${{ inputs.pr-number }}
+        INPUT_LOGSLIM_VERSION: ${{ inputs.logslim-version }}
+        INPUT_LOCAL: ${{ inputs.local }}
+        INPUT_SKIP_ON_SUCCESS: ${{ inputs.skip-on-success }}
