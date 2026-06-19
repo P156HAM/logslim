@@ -1,0 +1,57 @@
+name: "📇 Error code fix card"
+description: Suggest a fix card for an error code logslim should recognize
+title: "[card] <CODE> — <one-line meaning>"
+labels: ["error-card", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding a code to an existing family (**TypeScript / Node / npm**) is a pure-JSON,
+        ~5-minute PR — see [CONTRIBUTING.md](https://github.com/P156HAM/logslim/blob/main/CONTRIBUTING.md#add-an-error-card-in-5-minutes).
+        Prefer to just open the PR? Even better — link it here.
+  - type: input
+    id: code
+    attributes:
+      label: Error code
+      placeholder: "TS2741 / EBADENGINE / E0502"
+    validations:
+      required: true
+  - type: dropdown
+    id: family
+    attributes:
+      label: Family
+      options:
+        - typescript
+        - node
+        - npm
+        - eslint
+        - python
+        - rust
+        - go
+        - other
+    validations:
+      required: true
+  - type: input
+    id: meaning
+    attributes:
+      label: One-line meaning
+      description: What a tired developer needs to understand at 2am.
+    validations:
+      required: true
+  - type: textarea
+    id: fix_steps
+    attributes:
+      label: Fix steps (2–3, most likely fix first)
+      placeholder: |
+        - Add the missing property
+        - Make it optional if it genuinely is
+        - Check you're constructing the right type
+    validations:
+      required: true
+  - type: textarea
+    id: sample
+    attributes:
+      label: A real log line containing this code (optional but ideal)
+      render: text
+    validations:
+      required: false

@@ -1,0 +1,38 @@
+name: "🧪 Log that compacts badly"
+description: Share real test/build output logslim mangles, over-trims, or doesn't recognize
+title: "[log] <tool> output — <what's wrong>"
+labels: ["log-format", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The best test data is real output. A realistic sample is worth more than any
+        synthetic test — it becomes a fixture and locks the behavior in for good.
+  - type: input
+    id: tool
+    attributes:
+      label: Tool / runner
+      placeholder: "Playwright, pytest, vitest, cargo test, gradle…"
+    validations:
+      required: true
+  - type: textarea
+    id: raw
+    attributes:
+      label: Raw log
+      description: Paste the output (trim secrets and real hostnames).
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What a good summary would keep / drop
+    validations:
+      required: false
+  - type: input
+    id: command
+    attributes:
+      label: Command + logslim version
+      placeholder: "logslim -- npx playwright test   (logslim 0.3.0)"
+    validations:
+      required: false
