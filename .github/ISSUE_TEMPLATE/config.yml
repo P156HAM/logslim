@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "Add an error code (5-minute PR)"
+    url: https://github.com/P156HAM/logslim/blob/main/CONTRIBUTING.md#add-an-error-card-in-5-minutes
+    about: The fastest way to contribute — add a fix card for a known error code.
+  - name: "Tell your agent to use logslim"
+    url: https://github.com/P156HAM/logslim#tell-your-agent-to-use-it
+    about: How to wire logslim into Claude Code, Cursor, or any MCP client.

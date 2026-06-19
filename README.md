@@ -368,6 +368,18 @@ npm run build
 npm run demo
 ```
 
+## Contributing
+
+logslim gets sharper every time it learns a new error code or a new log format — and both
+are easy first contributions:
+
+- **Add an error fix card** (TypeScript / Node / npm) — a ~5-minute, pure-JSON PR.
+- **Share a log that compacts badly** — paste real output from a tool logslim mangles.
+- **Add support for a new runner** — Playwright, pytest, vitest, cargo, gradle…
+
+Start here: **[good first issues](https://github.com/P156HAM/logslim/labels/good%20first%20issue)**
+· **[CONTRIBUTING.md](./CONTRIBUTING.md)**
+
 ## License
 
 MIT — use freely, no account required.
