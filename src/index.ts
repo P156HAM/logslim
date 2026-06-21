@@ -9,6 +9,7 @@
 import { cleanTerminalOutput } from "./ansi.js";
 import { collapseConsecutiveDuplicates, dedupeByTemplate } from "./dedupe.js";
 import { collapseStackFrames } from "./stack.js";
+import { isPlaywrightOutput, compactPlaywright } from "./playwright.js";
 import { enforceBudget } from "./budget.js";
 import { estimateTokens } from "./tokens.js";
 import { extractErrors, type ExtractedError } from "./extract.js";
@@ -95,9 +96,16 @@ function compactFull(input: string, options: CompactOptions): string {
   const cleaned = cleanTerminalOutput(input);
   let lines = cleaned.split("\n");
 
-  lines = collapseConsecutiveDuplicates(lines);
-  lines = collapseStackFrames(lines);
-  lines = dedupeByTemplate(lines, { maxPerTemplate, maxPerErrorTemplate });
+  if (isPlaywrightOutput(cleaned)) {
+    // Playwright's list reporter repeats the whole failure for each retry and
+    // pads every section with box-drawing rules — handle it directly.
+    lines = compactPlaywright(lines);
+    lines = collapseConsecutiveDuplicates(lines);
+  } else {
+    lines = collapseConsecutiveDuplicates(lines);
+    lines = collapseStackFrames(lines);
+    lines = dedupeByTemplate(lines, { maxPerTemplate, maxPerErrorTemplate });
+  }
   lines = lines.filter((l, i, arr) => l.trim() !== "" || (i > 0 && arr[i - 1].trim() !== ""));
 
   if (budget > 0) {
