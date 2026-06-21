@@ -11,6 +11,8 @@ export interface ExtractedError {
   kind?: "assertion" | "compile" | "runtime" | "test_failure" | "npm";
 }
 
+import { isPlaywrightOutput, extractPlaywrightErrors } from "./playwright.js";
+
 const FILE_LINE_RE =
   /(?:at\s+.*?\(([^)]+):(\d+):(\d+)\)|at\s+([^\s(]+):(\d+):(\d+)|([^\s:]+\.[a-z]+):(\d+):(\d+))/i;
 const FAIL_SUITE_RE = /^\s*FAIL\s+(\S+)/;
@@ -20,6 +22,8 @@ const TS_CODE_LINE_RE = /^(TS\d+):\s*(.+)$/;
 const NPM_ERR_RE = /^npm ERR! (.+)$/i;
 
 export function extractErrors(text: string): ExtractedError[] {
+  if (isPlaywrightOutput(text)) return extractPlaywrightErrors(text);
+
   const lines = text.split("\n");
   const out: ExtractedError[] = [];
   const seen = new Set<string>();
