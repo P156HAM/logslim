@@ -10,6 +10,7 @@ import { cleanTerminalOutput } from "./ansi.js";
 import { collapseConsecutiveDuplicates, dedupeByTemplate } from "./dedupe.js";
 import { collapseStackFrames } from "./stack.js";
 import { isPlaywrightOutput, compactPlaywright } from "./playwright.js";
+import { isStructuredLog, renderStructured } from "./structured.js";
 import { enforceBudget } from "./budget.js";
 import { estimateTokens } from "./tokens.js";
 import { extractErrors, type ExtractedError } from "./extract.js";
@@ -102,6 +103,11 @@ function compactFull(input: string, options: CompactOptions): string {
     lines = compactPlaywright(lines);
     lines = collapseConsecutiveDuplicates(lines);
   } else {
+    if (isStructuredLog(cleaned)) {
+      // Cloud logs (CloudWatch/GCP/Datadog/k8s) are JSON-per-line — render each
+      // entry down to "LEVEL  message" so dedupe can collapse the repeats.
+      lines = renderStructured(lines);
+    }
     lines = collapseConsecutiveDuplicates(lines);
     lines = collapseStackFrames(lines);
     lines = dedupeByTemplate(lines, { maxPerTemplate, maxPerErrorTemplate });

@@ -141,3 +141,46 @@ export const PLAYWRIGHT_LOG = [
   "  1 failed",
   `    tests/checkout.spec.ts:3:5 › guest can pay with startup plan ${"─".repeat(47)}`,
 ].join("\n");
+
+/** Cloud-style JSON-per-line logs: health-check spam + a few real failures. */
+export const STRUCTURED_LOG = [
+  ...Array.from({ length: 150 }, (_, i) =>
+    JSON.stringify({
+      timestamp: `2026-06-22T10:${String(i % 60).padStart(2, "0")}:0${i % 10}.${i}Z`,
+      level: "info",
+      message: `GET /health 200 ${12 + (i % 7)}ms`,
+      requestId: `req-${i}`,
+      service: "api",
+    })
+  ),
+  JSON.stringify({
+    timestamp: "2026-06-22T10:31:02.500Z",
+    level: "warn",
+    message: "db pool at 80% capacity",
+    service: "api",
+  }),
+  JSON.stringify({
+    timestamp: "2026-06-22T10:31:03.001Z",
+    level: "error",
+    message: "connect ECONNREFUSED 10.0.1.5:5432",
+    service: "checkout",
+    requestId: "req-aaa",
+  }),
+  JSON.stringify({
+    timestamp: "2026-06-22T10:31:03.140Z",
+    level: "error",
+    message: "connect ECONNREFUSED 10.0.1.5:5432",
+    service: "checkout",
+    requestId: "req-bbb",
+  }),
+  ...Array.from({ length: 40 }, (_, i) =>
+    JSON.stringify({
+      timestamp: `2026-06-22T10:32:0${i % 10}.${i}Z`,
+      level: "info",
+      message: `GET /health 200 ${10 + (i % 5)}ms`,
+      requestId: `req-h${i}`,
+      service: "api",
+    })
+  ),
+  JSON.stringify({ level: "fatal", message: "worker 3 exited: out of memory", service: "checkout" }),
+].join("\n");
