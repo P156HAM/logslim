@@ -1,0 +1,41 @@
+{
+  "name": "logslim-mcp",
+  "version": "0.4.0",
+  "description": "MCP server for logslim — compact noisy test/build/cloud-log output before an AI agent reads it.",
+  "type": "module",
+  "bin": {
+    "logslim-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "logslim": "^0.4.0"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "logslim",
+    "ai-agents",
+    "llm",
+    "logs",
+    "tokens",
+    "claude-code",
+    "cursor"
+  ],
+  "license": "MIT",
+  "author": "Hamdi Al Masalmeh <a.hamdi.almasalmeh@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/P156HAM/logslim.git",
+    "directory": "logslim-mcp"
+  },
+  "homepage": "https://github.com/P156HAM/logslim#readme",
+  "bugs": {
+    "url": "https://github.com/P156HAM/logslim/issues"
+  }
+}
