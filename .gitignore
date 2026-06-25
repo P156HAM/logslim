@@ -5,5 +5,6 @@ dist/
 
 # Private notes — never publish
 LAUNCH.md
+DISTRIBUTION.md
 PRIVATE.md
 *.private.md
