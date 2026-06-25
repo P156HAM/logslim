@@ -30,7 +30,7 @@ function getPrNumber() {
 
 function runLogslim(logText, exitCode) {
   const useLocal = input("local") === "true";
-  const version = input("logslim-version") || "0.3.0";
+  const version = input("logslim-version") || "0.4.0";
   const args = [
     "--json",
     "--attach",

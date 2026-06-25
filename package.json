@@ -1,6 +1,6 @@
 {
   "name": "logslim",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Structured CI failure summaries on PRs + compact test/build logs for AI agents. GitHub Action, CLI, MCP. ~80-95% fewer tokens on failures.",
   "keywords": [
     "ai-agents",
