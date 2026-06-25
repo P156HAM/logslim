@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- **Playwright support**: collapses repeated retry blocks, folds screenshot/trace attachments, strips decorative rules, and extracts structured failures (`file:line`, assertion, expected/received). ~64% fewer tokens on real failure output. Thanks @TerFree70 for the sample.
+- **Structured / cloud logs**: detects JSON-per-line output (CloudWatch, GCP Cloud Logging, Datadog, k8s/Docker) and compacts it for agents — pipe `aws logs tail` / `gcloud logging read` / `kubectl logs` through `logslim --mode full` (~99% fewer tokens on noisy log streams).
+- **Contributor on-ramp**: `CONTRIBUTING.md`, issue templates, and an `errors/*.json` catalog validator.
+
 ## 0.3.0
 
 - **GitHub Action** (`./action`): post structured failure summaries on PRs when CI tests/builds fail

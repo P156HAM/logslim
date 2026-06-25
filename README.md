@@ -49,7 +49,7 @@ jobs:
 
       - name: Post failure summary
         if: steps.test.outcome == 'failure' && github.event_name == 'pull_request'
-        uses: P156HAM/logslim/action@v0.3.0
+        uses: P156HAM/logslim/action@v0.4.0
         with:
           log-file: test-output.log
           exit-code: 1
