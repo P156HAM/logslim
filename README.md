@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/v/logslim)](https://www.npmjs.com/package/logslim)
 [![license](https://img.shields.io/github/license/P156HAM/logslim)](./LICENSE)
 [![node](https://img.shields.io/node/v/logslim)](https://www.npmjs.com/package/logslim)
+[![logslim MCP server](https://glama.ai/mcp/servers/P156HAM/logslim/badges/score.svg)](https://glama.ai/mcp/servers/P156HAM/logslim)
 
 When tests or builds fail, you scroll GitHub Actions logs. When Claude Code or Cursor runs
 `npm test`, the agent reads **everything** — progress bars, 120 identical warnings, 40 frames
